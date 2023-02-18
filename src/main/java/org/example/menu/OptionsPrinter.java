@@ -8,7 +8,7 @@ public class OptionsPrinter {
         System.out.println("3. show wallet");
         System.out.println("4. show selected by type");
         System.out.println("5. set market price");
-        System.out.println("6. clear all assets");
+        System.out.println("6. burn wallet");
         System.out.println("7. increase deposit of cash");
         System.out.println("0. exit wallet");
     }

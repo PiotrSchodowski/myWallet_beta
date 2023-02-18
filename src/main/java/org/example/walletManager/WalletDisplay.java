@@ -34,10 +34,10 @@ public class WalletDisplay {
             System.out.println("AssetsValue: " + valueOfAssets + "zł  percent of wallet: " + df.format(allAssetsPercentShareOfWallet) + "%");
 
             /** Show value of cash in Wallet **/
-            System.out.println("CashValue: " + walletHandler.valueInCash(cashList) + "zł");
+            System.out.println("CashValue: " +  df.format(walletHandler.valueInCash(cashList)) + "zł");
 
             /** Show total portfolio value - include cash and assets **/
-            System.out.println("TOTAL PORTFOLIO VALUE: " + totalPortfolioValue + "zł");
+            System.out.println("TOTAL PORTFOLIO VALUE: " + df.format(totalPortfolioValue) + "zł");
 
             /** Show total portfolio result in percentage - include cash and assets **/
             walletHandler.resultOfInvestment(totalPortfolioValue,payments);

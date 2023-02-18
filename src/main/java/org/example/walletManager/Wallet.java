@@ -53,7 +53,7 @@ public class Wallet {
     }
     public boolean haveEnoughCash(float amount, float price){
         float value = amount * price;
-        float valueOfCash = cashList.stream().collect(Collectors.summingInt(cash -> (int)cash.value));
+        float valueOfCash = cashList.stream().mapToInt(cash -> (int) cash.value).sum();
         if(valueOfCash<value){
             return false;
         }else return true;
