@@ -5,7 +5,6 @@ import org.example.portfolioComponents.cash.Cash;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Wallet {
     private final List<Asset> assetList;
@@ -17,7 +16,6 @@ public class Wallet {
         this.cashList = cashList;
 
     }
-    /*====================================================CASH METHODS=======================================================*/
     public void addCash(){
         System.out.println("Get value of cash: ");
         float cashValue = scanner.nextFloat();
@@ -35,40 +33,6 @@ public class Wallet {
             cashList.set(1,newCash);
         }
     }
-    public void decreaseCash(float price, float amount) {
-        float value = price * amount;
-        Cash cashMinus = new Cash(value);
-        Cash oldValue = cashList.get(0);
-        Cash newValue = new Cash(0);
-        newValue.value = oldValue.value - cashMinus.value;
-        cashList.set(0,newValue);
-    }
-    public void increaseCash(float price, float amount) {
-        float value = price * amount;
-        Cash cashPlus = new Cash(value);
-        Cash oldValue = cashList.get(0);
-        Cash newValue = new Cash(0);
-        newValue.value = oldValue.value + cashPlus.value;
-        cashList.set(0,newValue);
-    }
-    public boolean haveEnoughCash(float amount, float price){
-        float value = amount * price;
-        float valueOfCash = cashList.stream().mapToInt(cash -> (int) cash.value).sum();
-        if(valueOfCash<value){
-            return false;
-        }else return true;
-    }
-
-    /*====================================================ASSET METHODS=======================================================*/
-    private void addNewAsset(String name) {
-        String typeOfAsset = getTypeOfAsset();
-        float amount = getAmountOfAsset();
-        float price = getFromUserPriceOfAsset();
-        if(haveEnoughCash(amount,price)) {
-            decreaseCash(price, amount);
-            assetList.add(new Asset(typeOfAsset, name, amount, price));
-        }else System.out.println("You don't have enough money");
-    }
     public void addAsset() {
         System.out.println("Write initial name: ");
         String nameOfAsset;
@@ -83,7 +47,7 @@ public class Wallet {
                 float price = getFromUserPriceOfAsset();
                 if(haveEnoughCash(amount,price)) {
                     decreaseCash(price, amount);
-                    asset.addAmount(amount, price);
+                    asset.increaseResources(amount, price);
                     assetList.set(i, asset);
                 }else System.out.println("You don't have enough money");
                 break;
@@ -105,7 +69,7 @@ public class Wallet {
                 shouldBeAssetSell = false;
                 float amount = getAmountOfAsset();
                 float price = getFromUserPriceOfAsset();
-                asset.removeAmount(amount, price);
+                asset.decreaseResources(amount, price);
                 increaseCash(price,amount);
                 assetList.set(i, asset);
                 break;
@@ -114,21 +78,6 @@ public class Wallet {
         if (shouldBeAssetSell) {
             System.out.println("you don't have this asset");
         }
-    }
-    public float getAmountOfAsset() {
-        System.out.println("Get amount: ");
-        float amountOfAsset = scanner.nextFloat();
-        return amountOfAsset;
-    }
-    public float getFromUserPriceOfAsset() {
-        System.out.println("Get price: ");
-        float priceOfAsset = scanner.nextFloat();
-        return priceOfAsset;
-    }
-    public String getTypeOfAsset(){
-        System.out.println("Get type of asset: ");
-        String typeOfAsset = scanner.next();
-        return typeOfAsset;
     }
     public void setMarketPrice(List<Asset> assetList){
 
@@ -143,4 +92,48 @@ public class Wallet {
         return assetList;
     }
     public List<Cash> getCashList() {return cashList;}
+
+    private void addNewAsset(String name) {
+        String typeOfAsset = getTypeOfAsset();
+        float amount = getAmountOfAsset();
+        float price = getFromUserPriceOfAsset();
+        if(haveEnoughCash(amount,price)) {
+            decreaseCash(price, amount);
+            assetList.add(new Asset(typeOfAsset, name, amount, price));
+        }else System.out.println("You don't have enough money");
+    }
+    private float getAmountOfAsset() {
+        System.out.println("Get amount: ");
+        return scanner.nextFloat();
+    }
+    private float getFromUserPriceOfAsset() {
+        System.out.println("Get price: ");
+        return scanner.nextFloat();
+    }
+    private String getTypeOfAsset(){
+        System.out.println("Get type of asset: ");
+        return scanner.next();
+    }
+    private void decreaseCash(float price, float amount) {
+        float value = price * amount;
+        Cash cashMinus = new Cash(value);
+        Cash oldValue = cashList.get(0);
+        Cash newValue = new Cash(0);
+        newValue.value = oldValue.value - cashMinus.value;
+        cashList.set(0,newValue);
+    }
+    private void increaseCash(float price, float amount) {
+        float value = price * amount;
+        Cash cashPlus = new Cash(value);
+        Cash oldValue = cashList.get(0);
+        Cash newValue = new Cash(0);
+        newValue.value = oldValue.value + cashPlus.value;
+        cashList.set(0,newValue);
+    }
+    private boolean haveEnoughCash(float amount, float price){
+        float value = amount * price;
+        float valueOfCash = cashList.stream().mapToInt(cash -> (int) cash.value).sum();
+        return !(valueOfCash < value);
+    }
+
 }

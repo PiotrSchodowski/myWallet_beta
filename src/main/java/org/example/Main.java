@@ -1,5 +1,4 @@
-package org.example.menu;
-
+package org.example;
 import org.example.dataManager.DataConnection;
 
 public class Main {

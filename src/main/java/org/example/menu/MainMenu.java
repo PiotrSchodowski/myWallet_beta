@@ -1,7 +1,7 @@
 package org.example.menu;
 
-import org.example.dataManager.databaseHandling.DatabaseAccess;
-import org.example.dataManager.jsonHandling.FileManager;
+import org.example.dataManager.DatabaseAccess;
+import org.example.dataManager.FileManager;
 import org.example.portfolioComponents.asset.Asset;
 import org.example.portfolioComponents.cash.Cash;
 import org.example.walletManager.Wallet;
@@ -17,8 +17,6 @@ public class MainMenu {
     Scanner scanner = new Scanner(System.in);
     FileManager fileManager = new FileManager();
     DatabaseAccess databaseAccess = new DatabaseAccess();
-
-
 
     public void runApp(List<Asset> assetList, List<Cash> cashList,boolean isConnectionWithDatabase){
 
@@ -38,13 +36,16 @@ public class MainMenu {
                 case (5):   wallet.setMarketPrice(wallet.getAssetList());break;
                 case (6):   walletHandler.clearWallet(assetList,cashList); break;
                 case (7):   wallet.addCash(); break;
-                case (0):     if(isConnectionWithDatabase == true) {
-                    System.out.println("save to database final");databaseAccess.updateDatabaseWallet(assetList,cashList); }
-                                 else fileManager.saveToFile(assetList,cashList);break;
+                case (0):
+                            if(isConnectionWithDatabase) {
+                            System.out.println("save to database final");databaseAccess.updateDatabaseWalletV2(assetList,cashList);
+                            } else {
+                                fileManager.saveToFile(assetList, cashList);
+                            }
+                    break;
                 default:    System.out.println("Wrong command, try again");break;
             }
         }while (choice != 0);
-
     }
     protected int getChoice() {
         int choice;

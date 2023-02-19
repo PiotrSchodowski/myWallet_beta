@@ -1,4 +1,4 @@
-package org.example.dataManager.jsonHandling;
+package org.example.dataManager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -31,7 +31,7 @@ public class FileManager {
     public List<Cash> readCashFromFile() {
 
         Gson gson = new Gson();
-        Cash[] object = new Cash[0];
+        Cash[] object;
         if(new File(cashJson).length() != 0) {
             try (FileReader reader = new FileReader(cashJson)) {
                 object = gson.fromJson(reader, Cash[].class);
@@ -39,14 +39,13 @@ public class FileManager {
                 System.out.println("You don't have money, please donate");
                 return new ArrayList<>();
             }
-            List<Cash> cashList = Arrays.asList(object);
-            return cashList;
+            return Arrays.asList(object);
         }else return new ArrayList<>();
     }
     public List<Asset> readAssetsFromFile() {
 
         Gson gson = new Gson();
-        Asset[] object = new Asset[0];
+        Asset[] object ;
         if(new File(assetsJson).length() != 0) {
             try (FileReader reader = new FileReader(assetsJson)) {
                 object = gson.fromJson(reader, Asset[].class);
@@ -54,8 +53,7 @@ public class FileManager {
                 System.out.println("You don't have assets");
                 return new ArrayList<>();
             }
-            List<Asset> assetList = Arrays.asList(object);
-            return assetList;
+            return Arrays.asList(object);
         }else return new ArrayList<>();
     }
 

@@ -2,16 +2,14 @@ package org.example.walletManager;
 
 import org.example.portfolioComponents.asset.Asset;
 import org.example.portfolioComponents.cash.Cash;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class WalletHandler {
 
-
-    public void clearWallet(List assetList,List cashList){
+    public void clearWallet(@NotNull List<Asset> assetList, List<Cash> cashList){
         assetList.clear();
         cashList.clear();
     }
@@ -29,7 +27,7 @@ public class WalletHandler {
         return value;
     }
     public float totalPortfolioValue(List<Asset> assetList,List<Cash> cashList){
-        float value = 0;
+        float value;
         value = valueInAssets(assetList) + valueInCash(cashList);
         return value;
     }
@@ -50,19 +48,9 @@ public class WalletHandler {
             System.out.println("LOSS: -" + df.format(loss) + "zł  > -" + df.format(lossInPercent) + "%" );
         }
     }
-    public List assetListAfterSort(List<Asset> assetList){
+    public List<Asset> assetListAfterSort(List<Asset> assetList){
 
-        Collections.sort(assetList, new Comparator<Asset>() {
-            public int compare(Asset asset1, Asset asset2) {
-                if (asset1.getValue() < asset2.getValue()) {
-                    return -1;
-                } else if (asset1.getValue() == asset2.getValue()) {
-                    return 0;
-                } else {
-                    return 1;
-                }
-            }
-        });
+        assetList.sort((asset1, asset2) -> Float.compare(asset1.getValue(), asset2.getValue()));
         return assetList;
     }
 }

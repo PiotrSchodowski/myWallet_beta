@@ -1,19 +1,18 @@
 package org.example.dataManager;
-
-import org.example.dataManager.databaseHandling.DatabaseAccess;
-import org.example.dataManager.jsonHandling.FileManager;
 import org.example.menu.MainMenu;
+import org.example.portfolioComponents.asset.Asset;
+import org.example.portfolioComponents.cash.Cash;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class DataConnection {
 
-    private List assetList;
-    private List cashList;
-    private boolean isConnectionWithDatabase;
-    private FileManager fileManager = new FileManager();
-    private MainMenu mainMenu = new MainMenu();
+    private List<Asset> assetList;
+    private List<Cash> cashList;
+    private boolean isConnectionWithDatabase = false;
+    private final FileManager fileManager = new FileManager();
+    private final MainMenu mainMenu = new MainMenu();
     Scanner scanner = new Scanner(System.in);
 
     public void checkTheConnectionWithDatabase() {
@@ -42,7 +41,6 @@ public class DataConnection {
             case(2):{
                 assetList = fileManager.readAssetsFromFile();
                 cashList = fileManager.readCashFromFile();
-                isConnectionWithDatabase = false;
                 mainMenu.runApp(assetList, cashList, isConnectionWithDatabase);
             }break;
             default:

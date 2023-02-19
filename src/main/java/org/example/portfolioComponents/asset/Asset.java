@@ -26,7 +26,6 @@ public class Asset implements Serializable {
         this.marketPrice = price;
         this.value = amount*marketPrice;
     }
-
     @Override
     public String toString() {
         return "Asset{" +
@@ -36,15 +35,12 @@ public class Asset implements Serializable {
                 ", amount=" + amount +
                 '}';
     }
-    public float addAmount(float amount, float price) {
+    public void increaseResources(float amount, float price) {
         this.marketPrice = price;
         this.amount += amount;
-        return amount;
     }
-
-    public float removeAmount(float amount, float price) {
+    public void decreaseResources(float amount, float price) {
         this.marketPrice = price;
         this.amount -= amount;
-        return amount;
     }
 }

@@ -1,6 +1,4 @@
 package org.example.portfolioComponents.cash;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +11,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Cash implements Serializable {
 
     @Id
@@ -23,14 +20,6 @@ public class Cash implements Serializable {
     public float value;
     public Cash(float value) {
         this.value = value;
-    }
-
-    public void setValue(float value) {
-        this.value = value;
-    }
-
-    public float getValue() {
-        return value;
     }
 
     @Override

@@ -21,25 +21,25 @@ public class WalletDisplay {
             float valueOfAssets = walletHandler.valueInAssets(assetList);
             float totalPortfolioValue = walletHandler.totalPortfolioValue(assetList,cashList);
 
-            /** Sort list by value **/
+            /* Sort list by value **/
             assetList = walletHandler.assetListAfterSort(assetList);
 
-            /** Show list of all assets and their share percentage in wallet **/
+            /* Show list of all assets and their share percentage in wallet **/
             for (Asset assets : (assetList)) {
                 System.out.println(assets + "  percent of wallet: " + df.format(walletHandler.assetPercentShareOfWallet(assets, totalPortfolioValue)) + "%");
             }
 
-            /** Show Percent share assets in Wallet **/
+            /* Show Percent share assets in Wallet **/
             float allAssetsPercentShareOfWallet = (valueOfAssets/totalPortfolioValue)*100 ;
             System.out.println("AssetsValue: " + valueOfAssets + "zł  percent of wallet: " + df.format(allAssetsPercentShareOfWallet) + "%");
 
-            /** Show value of cash in Wallet **/
+            /* Show value of cash in Wallet **/
             System.out.println("CashValue: " +  df.format(walletHandler.valueInCash(cashList)) + "zł");
 
-            /** Show total portfolio value - include cash and assets **/
+            /* Show total portfolio value - include cash and assets **/
             System.out.println("TOTAL PORTFOLIO VALUE: " + df.format(totalPortfolioValue) + "zł");
 
-            /** Show total portfolio result in percentage - include cash and assets **/
+            /* Show total portfolio result in percentage - include cash and assets **/
             walletHandler.resultOfInvestment(totalPortfolioValue,payments);
 
             System.out.println("\n");
@@ -52,7 +52,7 @@ public class WalletDisplay {
     public void showTheTypeOfAsset(List<Asset> assetList){
         System.out.println("Write the type: ");
         String choiceType = scanner.next();
-        assetList.stream().filter(str -> str.getType().startsWith(choiceType)).forEach(str -> System.out.println(str));
+        assetList.stream().filter(str -> str.getType().startsWith(choiceType)).forEach(System.out::println);
         System.out.println("\n");
     }
 }
